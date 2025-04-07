@@ -1,8 +1,14 @@
 <!-- @format -->
 
 <template>
-  <div>
-    <a-card :title="props.info.title" style="width: 600px" @click="onClick">
+  <div style="margin-bottom: 10px" class="words-item">
+    <a-card
+      :title="props.info.title"
+      style="width: 800px"
+      @click="onClick"
+      :bordered="false"
+      :class="props.info.isSelect ? 'is-select' : ''"
+    >
       <template #extra>
         <slot></slot>
       </template>
@@ -22,19 +28,49 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps, watch } from "vue";
 const props = defineProps({
   info: {
     type: Object,
     default: () => {},
   },
+  itemFunc: {
+    type: Function,
+    default: () => {},
+  },
 });
 const onClick = () => {
-    // 点击选中  点击组个出现发音  外部传入函数?
-  console.log("点击item");
+  props.itemFunc();
+  console.log(props.info);
+  // 点击选中  点击组个出现发音  外部传入函数?
 };
-const onAdd=()=>{
-    console.log('点击新增')
-}
+const onAdd = () => {
+  console.log("点击新增");
+};
+watch(
+  () => props.info.isSelect,
+  (newVal) => {
+    console.log(newVal,'props.info.isSelect);');
+  },
+    {
+        immediate: true,
+        deep: true,
+    }
+);
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.words-item {
+  margin-bottom: 20px;
+  cursor: pointer;
+  ::v-deep {
+    .ant-card .ant-card-head {
+      border: none;
+    }
+  }
+  .is-select {
+    background-color: #ff9719;
+    color: #fff;
+  }
+}
+</style>

@@ -5,6 +5,7 @@ const layout = () => import("@/components/layout.vue");
 const words = () => import("@/views/words/index.vue");
 const learn = () => import("@/views/words/learn.vue");
 const records = () => import("@/views/words/records.vue");
+const selectWords = () => import("@/views/words/selectWords.vue");
 const routes = [
   {
     path: "/",
@@ -19,16 +20,24 @@ const routes = [
       {
         path: "/words",
         name: "words",
-        component:words,
+        component: words,
       },
       {
         path: "/learn",
         name: "learn",
         component: learn,
-        meta:{
-          title:"学习情况"
-        }
-      }
+        meta: {
+          title: "学习情况",
+        },
+      },
+      {
+        path: "/selectWords",
+        name: "selectWords",
+        component: selectWords,
+        meta: {
+          title: "选择词汇",
+        },
+      },
     ],
   },
 ];
