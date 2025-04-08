@@ -1,14 +1,24 @@
+<!--
+ * @LastEditors: wangrui
+ * @Description: 
+ * @Date: 2025-04-08 13:54:36
+ * @LastEditTime: 2025-04-08 16:05:56
+ * @FilePath: \learn-english\learnEnglish\src\views\words\selectWords.vue
+-->
 <!-- @format -->
 
 <template>
   <div class="select-words">
-    <div class="words-content">
-      <wordsItem
-        v-for="item in wordsList"
-        :key="item.title"
-        :info="item"
-        :item-func="itemFunc(item)"
-      />
+    <div class="select-content">
+      <div class="words-content">
+        <wordsItem
+          v-for="item in wordsList"
+          :key="item.title"
+          :info="item"
+          :item-func="itemFunc(item)"
+        />
+      </div>
+      <div class="select-info">已选:{{ totalWords }}</div>
     </div>
     <div class="footer-btn">
       <a-button
@@ -27,7 +37,8 @@
 
 <script setup lang="ts">
 import wordsItem from "../../components/wordsItem.vue";
-const wordsList = [
+import { computed, reactive } from "vue";
+let wordsList = reactive([
   {
     title: "name1",
     remarks: "名字",
@@ -97,7 +108,7 @@ const wordsList = [
     title: "name17",
     remarks: "名字",
   },
-];
+]);
 function itemFunc(item: any) {
   return () => {
     // 点击选中  点击组个出现发音  外部传入函数?
@@ -111,17 +122,29 @@ function itemFunc(item: any) {
     console.log(wordsList);
   };
 }
+
+const totalWords = computed(() => {
+  return wordsList.filter((item:any) => item?.isSelect).length;
+});
 </script>
 
 <style lang="less" scoped>
 .select-words {
   padding: 30px 80px 0;
-  .words-content {
-    height: 600px;
-    overflow-y: auto;
-  }
-  .words-content::-webkit-scrollbar {
-    display: none; /* 隐藏滚动条 */
+  .select-content {
+    display: flex;
+    .words-content {
+      height: 600px;
+      overflow-y: auto;
+    }
+    .select-info {
+      margin-left: 100px;
+      font-size: 20px;
+      color: #fff;
+    }
+    .words-content::-webkit-scrollbar {
+      display: none; /* 隐藏滚动条 */
+    }
   }
   .footer-btn {
     text-align: center;

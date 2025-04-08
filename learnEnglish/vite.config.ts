@@ -1,6 +1,14 @@
+/*
+ * @LastEditors: wangrui
+ * @Description: 
+ * @Date: 2025-04-07 15:44:13
+ * @LastEditTime: 2025-04-07 15:52:50
+ * @FilePath: \learn-english\learnEnglish\vite.config.ts
+ */
 // vite.config.js
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import path from 'path'
 
 export default defineConfig({
   plugins: [vue()],
